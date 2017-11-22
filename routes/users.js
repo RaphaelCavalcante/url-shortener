@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
+var base = alphabet.length;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -28,4 +30,13 @@ router.post('/', function(req, res, next){
     }
   });
 });
+function encode(id){
+  var url= '';
+  while(id){
+    var index = id%base;
+    id=Math.floor(id/base);
+    url = alphabet[index].toString + url;
+  }
+  return url;
+}
 module.exports = router;
