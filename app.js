@@ -20,20 +20,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-/*
-app.use(function (req, res, next){
-  global.connection = mysql.createConnection({
-    host:'localhost',
-    user:'chaordic',
-    password:'chaordic123',
-    database:'chaordic_url'
-  });
-  connection.connect();
-  next();
-});*/
 
 app.use('/', index);
-app.use('/users', users);
+//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

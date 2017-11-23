@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
 var base = alphabet.length;
+var connection = require('../database');
 
-/* GET users listing. */
 router.get('/', function (req, res, next) {
   connection.query('select * from user', function (error, results, fields) {
     if (error) {
@@ -12,6 +12,10 @@ router.get('/', function (req, res, next) {
       res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
     }
   });
+});
+
+router.post('/:userid/urls', function(req, res, next){
+
 });
 
 router.post('/', function (req, res, next) {
