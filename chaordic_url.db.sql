@@ -4,6 +4,9 @@
 -- ------------------------------------------------------
 -- Server version	5.7.20-0ubuntu0.17.10.1
 
+DROP SCHEMA IF EXISTS `chaordic_url`;
+CREATE SCHEMA `chaordic_url`;
+USE `chaordic_url`;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -28,18 +31,12 @@ CREATE TABLE `url` (
   `url` varchar(255) DEFAULT NULL,
   `shortUrl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100004 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1000000000 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `url`
 --
-
-LOCK TABLES `url` WRITE;
-/*!40000 ALTER TABLE `url` DISABLE KEYS */;
-INSERT INTO `url` VALUES (100000,1,'xxxx','bbb'),(100001,1,'xxxx','bbb'),(100002,1,'xxxx','bbb'),(100003,1,'xxxx','bbb');
-/*!40000 ALTER TABLE `url` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
