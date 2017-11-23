@@ -16,18 +16,25 @@ router.get('/users', function (requ, res, next) {
     res.send(JSON.stringify({ "status": 200, "error": null, "response": result }));
   });
 });
-router.get('/users/:userid/stats', function(req, res, next){
-  var data = {
-    "hits": 0,
-    "urlCount": 0,
-    topUrls: []
-  };
-  userController.getUserUrl(req.params.userid, function(err, result, fields){
-    data.hits=compileHits(result);
-    data.urlCount=result.length;
-    data.topUrls= JSON.parse(JSON.stringify((topTenUrls(result.slice(0, 10).sort(function(a, b){ return a - b;})))));
-    res.send({"status":200, "result":data});
-  });
+router.get('/users/:userid/stats', function (req, res, next) {
+  userController.getUser(req.params.userid, function (err, result, fields) {
+    if (Object.keys(result).length === 0 && result.constructor === Array) {
+      res.status(404).send("Not found");
+    } else {
+      userController.getUserUrl(req.params.userid, function (err, result, fields) {
+        var data = {
+          "hits": 0,
+          "urlCount": 0,
+          topUrls: []
+        };
+        data.hits = compileHits(result);
+        data.urlCount = result.length;
+        data.topUrls = JSON.parse(JSON.stringify((topTenUrls(result.slice(0, 10).sort(function (a, b) { return a - b; })))));
+        res.send({ data });
+      });
+    }
+    });
+
 });
 router.post('/users/:userid/urls', function (req, res, next) {
   var input = JSON.parse(JSON.stringify(req.body));
@@ -44,14 +51,14 @@ router.post('/users/:userid/urls', function (req, res, next) {
     if (values == 0) {
       key = 100000;
     } else {
-      console.log(result[values-1]);
-      key=result[values-1].id;
+      console.log(result[values - 1]);
+      key = result[values - 1].id;
     }
     url += urlController.encodeUrl(key);
     data.shortUrl = url;
     data.id = key;
     urlController.createUrl(data);
-    userUrlController.createUserUrl(req.params.userid, key, function(res, err, fields){
+    userUrlController.createUserUrl(req.params.userid, key, function (res, err, fields) {
       //console.log(err);
     });
 
@@ -65,10 +72,10 @@ router.get('/stats', function (req, res, next) {
     topUrls: []
   };
   urlController.getAllUrl(function (err, result, fields) {
-    data.hits=compileHits(result);
-    data.urlCount=result.length;
-    data.topUrls=result.slice(0, 10);
-    res.send({"status":200, "result":data});
+    data.hits = compileHits(result);
+    data.urlCount = result.length;
+    data.topUrls = result.slice(0, 10);
+    res.send({ "status": 200, "result": data });
   });
 });
 router.get('/stats/:urlid', function (req, res, next) {
@@ -87,17 +94,17 @@ router.get('/urls/:id', function (req, res, next) {
       } else {
         url = 'http://' + result[0].url;
       }
-      result[0].hits+=1;
-      urlController.updateUrl(result[0], function(err, result, field){
+      result[0].hits += 1;
+      urlController.updateUrl(result[0], function (err, result, field) {
         console.log(err);
       });
       res.redirect(301, url);
     }
   });
 });
-router.delete('/urls/:urlid', function(req, res, next){
-  urlController.deleteUrl(req.params.urlid, function(err, result, fields){
-      res.send({});
+router.delete('/urls/:urlid', function (req, res, next) {
+  urlController.deleteUrl(req.params.urlid, function (err, result, fields) {
+    res.send({});
   });
 });
 function getTotalHits(urls) {
@@ -107,23 +114,23 @@ function getTotalHits(urls) {
   }
   return hits;
 }
-function compileHits(urls){
-  var hits=0;
-  for( url of urls){
-    
-    hits+=url.hits;
+function compileHits(urls) {
+  var hits = 0;
+  for (url of urls) {
+
+    hits += url.hits;
   }
   return hits;
 }
-function topTenUrls(urls){
-  var top =new Array();
+function topTenUrls(urls) {
+  var top = new Array();
   /*var url={
     id: 0,
     hits: 0,
     url: '',
     shortUrl: ''
   }*/
-  for(var data of urls ){
+  for (var data of urls) {
     var url = {};
     url.id = data.url_id;
     url.hits = data.hits;

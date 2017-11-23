@@ -3,8 +3,8 @@ var User = {
     getAllUser: function(callback){
         return database.query('select * from user', callback);
     },
-    getUser: function(userId){
-        return database.query('select * from user where usrid=?', [usrid]);
+    getUser: function(userId, callback){
+        return database.query('select * from user where userid=?', [userId], callback);
     },
     getUserUrl: function(userId,callback){
         //select * from url inner join user_url on url.id=user_url.url_id where user_id=user_id
