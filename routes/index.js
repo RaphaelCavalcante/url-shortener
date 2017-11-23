@@ -117,13 +117,14 @@ function compileHits(urls){
 }
 function topTenUrls(urls){
   var top =new Array();
-  var url={
+  /*var url={
     id: 0,
     hits: 0,
     url: '',
     shortUrl: ''
-  }
+  }*/
   for(var data of urls ){
+    var url = {};
     url.id = data.url_id;
     url.hits = data.hits;
     url.url = data.url;
