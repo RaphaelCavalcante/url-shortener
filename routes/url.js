@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../database');
 
-router.get('/urls/:id', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
   urlController.getUrlByShort(req.params.id, function (err, result, fields) {
     if (result.length == 0) {
       res.status(404).send('Not found');
@@ -21,7 +21,7 @@ router.get('/urls/:id', function (req, res, next) {
     }
   });
 });
-router.delete('/urls/:urlid', function (req, res, next) {
+router.delete('/:urlid', function (req, res, next) {
   urlController.deleteUrl(req.params.urlid, function (err, result, fields) {
     res.send({});
   });
