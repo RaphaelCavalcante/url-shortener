@@ -20,19 +20,17 @@ Node.js v8.x:
 
 NOTE: Debian Wheezy packages are NOT available for this release. Please reference running Node.js >= 4.x on older distros.
 # Using Ubuntu
+```
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
+```
 
-# Using Debian, as root
-curl -sL https://deb.nodesource.com/setup_8.x | bash -
-apt-get install -y nodejs
 
-Mysql  Ver 14.14 Distrib 5.7.20
+#Mysql 
+```
 $sudo apt install mysql-server
-
+```
 ### Installing
-
-A step by step series of examples that tell you have to get a development env running
 
 Depois de baixar o projeto
 
