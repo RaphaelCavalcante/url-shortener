@@ -26,12 +26,12 @@ DROP TABLE IF EXISTS `url`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `url` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url_id` int(11) NOT NULL AUTO_INCREMENT,
   `hits` int(11) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `shortUrl` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000000000 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`url_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,19 +50,12 @@ CREATE TABLE `user` (
   `id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`userid`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
 --
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'raphael');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `user_url`
 --
