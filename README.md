@@ -110,11 +110,11 @@ Diretórios:
 
 Para gerar o projeto base foi utilizado express-generator. E as rotas são especificadas com o uso do framework express.
 
-###Banco de dados
+### Banco de dados
 
 São utilizadas Três tabelas:
 
-##user
+## user
 que armazena dados do usuário
 
 ```
@@ -126,7 +126,7 @@ que armazena dados do usuário
 +--------+-------------+------+-----+---------+----------------+
 
 ```
-##url
+## url
 que aramezena dados referentes às urls cadastradas
 ```
 +----------+--------------+------+-----+---------+----------------+
@@ -138,7 +138,7 @@ que aramezena dados referentes às urls cadastradas
 | shortUrl | varchar(255) | YES  |     | NULL    |                |
 +----------+--------------+------+-----+---------+----------------+
 ```
-##user_url
+## user_url
 faz o relacionamento 1..n do usuário com suas urls
 ```
 +---------+---------+------+-----+---------+----------------+
