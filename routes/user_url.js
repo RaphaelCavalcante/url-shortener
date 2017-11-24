@@ -7,7 +7,7 @@ var userUrlController = require('../controller/user_url.controller');
 var alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
 var base = alphabet.length;
 
-router.post('/users', function (req, res, next) {
+router.post('/', function (req, res, next) {
   var input = JSON.parse(JSON.stringify(req.body));
   var data = {
     "id": input.id
@@ -33,7 +33,7 @@ router.delete('/user/:userid', function (req, res, next) {
   });
 });
 
-router.get('/users/:userid/stats', function (req, res, next) {
+router.get('/:userid/stats', function (req, res, next) {
   userController.getUser(req.params.userid, function (err, result, fields) {
     if (Object.keys(result).length === 0 && result.constructor === Array) {
       res.status(404).send("Not found");
@@ -45,10 +45,10 @@ router.get('/users/:userid/stats', function (req, res, next) {
           topUrls: []
         };
         console.log(result);
-        data.hits = compileHits(result);
+        data.hits = userUrlController.compileHits(result);
         data.urlCount = result.length;
         //data.topUrls = JSON.parse(JSON.stringify((topTenUrls(result.slice(0, 10).sort(function (a, b) { return a - b; })))));
-        data.topUrls = topTenUrls(result.slice(0, 10));
+        data.topUrls = userUrlController.topTenUrls(result.slice(0, 10));
         res.send({ data });
       });
     }
@@ -57,7 +57,7 @@ router.get('/users/:userid/stats', function (req, res, next) {
 });
 
 
-router.post('/users/:userid/urls', function (req, res, next) {
+router.post('/:userid/urls', function (req, res, next) {
   userController.getUser(req.params.userid, function (err, result, fields) {
     if (result.length == 0) {
       res.status(404).send("User Not Found");
