@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "readme": "node ./node_modules/.bin/node-readme"
+    "start": "node ./bin/www",
+    "test": "node_modules/jest/bin/jest.js"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
