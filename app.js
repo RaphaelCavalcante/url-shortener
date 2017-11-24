@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var userUrl= require('./routes/user_url');
+var url = require('./routes/url');
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +23,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-//app.use('/users', users);
-
+app.use('/users', userUrl);
+app.use('/user', users)
+app.use('/urls', url)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

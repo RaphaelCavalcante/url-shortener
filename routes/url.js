@@ -2,28 +2,28 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../database');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  connection.query('select * from user', function(error, results, fields){
-    if(error){
-      res.send(JSON.stringify({"status":500, "error": error, "response":null}));
-    }else{
-      res.send(JSON.stringify({"status":200,"error":null,"response":results}));
+router.get('/urls/:id', function (req, res, next) {
+  urlController.getUrlByShort(req.params.id, function (err, result, fields) {
+    if (result.length == 0) {
+      res.status(404).send('Not found');
+    } else {
+      var url = '';
+      if (result[0].url.indexOf('http://') !== -1) {
+        url = result[0].url;
+      } else {
+        url = 'http://' + result[0].url;
+      }
+      result[0].hits += 1;
+      urlController.updateUrl(result[0], function (err, result, field) {
+        console.log(err);
+      });
+      res.redirect(301, url);
     }
   });
 });
-router.post('/', function(req, res, next){
-  var input = JSON.parse(JSON.stringify(req.body));
-  var data ={
-    "id":input.id
-  };
-  connection.query('insert into user set ?',[data], function(error, results, fields){
-    if(error.code == "ER_DUP_ENTRY"){
-      res.status('409')
-      res.send("conflict");
-    }else{
-      res.send(JSON.stringify({"status":200,"error":null,"response":results}));
-    }
+router.delete('/urls/:urlid', function (req, res, next) {
+  urlController.deleteUrl(req.params.urlid, function (err, result, fields) {
+    res.send({});
   });
 });
 module.exports = router;
